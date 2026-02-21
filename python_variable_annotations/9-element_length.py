@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module that provides a function returning list of tuples with element and its length."""
+"""Module that provides a function returning list of tuples with element."""
 
 from typing import Iterable, Sequence, List, Tuple
 
