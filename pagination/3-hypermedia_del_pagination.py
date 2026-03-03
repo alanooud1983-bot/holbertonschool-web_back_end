@@ -21,15 +21,16 @@ class Server:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-            self.__dataset = dataset[1:]  # skip header
+            self.__dataset = dataset[1:]
         return self.__dataset
 
     def indexed_dataset(self) -> Dict[int, List]:
         """Dataset indexed by sorting position, starting at 0"""
         if self.__indexed_dataset is None:
             dataset = self.dataset()
+            truncated_dataset = dataset[:1000]
             self.__indexed_dataset = {
-                i: dataset[i] for i in range(len(dataset))
+                i: truncated_dataset[i] for i in range(len(truncated_dataset))
             }
         return self.__indexed_dataset
 
@@ -37,19 +38,24 @@ class Server:
         """
         Return deletion-resilient hypermedia pagination info.
         """
+        if index is None:
+            index = 0
+
         assert isinstance(index, int) and index >= 0
+
         indexed_data = self.indexed_dataset()
-        assert index < len(indexed_data)
+        max_index = max(indexed_data.keys())
+        assert index <= max_index
 
         data = []
-        current_index = index
+        current = index
 
-        while len(data) < page_size and current_index < len(indexed_data):
-            if current_index in indexed_data:
-                data.append(indexed_data[current_index])
-            current_index += 1
+        while len(data) < page_size and current <= max_index:
+            if current in indexed_data:
+                data.append(indexed_data[current])
+            current += 1
 
-        next_index = current_index if current_index < len(indexed_data) else None
+        next_index = current if current <= max_index else None
 
         return {
             "index": index,
