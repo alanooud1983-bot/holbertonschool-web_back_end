@@ -1,1 +1,2 @@
-db.adminCommand('listDatabases')
+// first task
+show dbs
