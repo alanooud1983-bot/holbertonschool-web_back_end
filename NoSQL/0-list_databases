@@ -1,1 +1,1 @@
-db.adminCommand('listDases')
+show dbs
