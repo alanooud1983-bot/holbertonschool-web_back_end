@@ -1,6 +1,3 @@
-// Start reading from stdin
-process.stdin.resume();
-
 // Print welcome message
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
