@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // Import the filesystem module to read files
 const fs = require('fs');
 
