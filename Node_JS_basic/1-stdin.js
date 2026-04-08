@@ -1,17 +1,16 @@
-// Print the welcome message to STDOUT
+// Start reading from stdin
+process.stdin.resume();
+
+// Print welcome message
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-// Listen for user input from stdin
+// Listen for input
 process.stdin.on('data', (data) => {
-  // Convert input buffer to string and remove newline
   const name = data.toString().trim();
-
-  // Print the user's name
   process.stdout.write(`Your name is: ${name}\n`);
 });
 
-// Listen for the end of input (EOF)
+// When program ends (EOF)
 process.stdin.on('end', () => {
-  // Print closing message when input stream ends
   process.stdout.write('This important software is now closing\n');
 });
