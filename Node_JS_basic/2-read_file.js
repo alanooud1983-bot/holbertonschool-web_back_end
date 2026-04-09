@@ -1,14 +1,11 @@
 #!/usr/bin/env node
+
 const fs = require('fs');
+
 function countStudents(path) {
   try {
-    // Read file synchronously
     const data = fs.readFileSync(path, 'utf8');
-
-    // Split lines and remove empty ones
     const lines = data.split('\n').filter((line) => line.trim() !== '');
-
-    // Remove header
     const students = lines.slice(1);
 
     console.log(`Number of students: ${students.length}`);
